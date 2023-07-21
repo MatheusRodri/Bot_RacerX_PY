@@ -1,24 +1,21 @@
 import discord
 from key import token
+from discord.ext import commands
+from commands.cogs.hello_cog import HelloCog
+import os
 
-intents = discord.Intents.default()
-intents.message_content = True
-client = discord.Client(intents=intents)
 TOKEN = token.get("TOKEN")
+intents = discord.Intents.all()
+bot = commands.Bot(command_prefix='/',intents=intents)
 
-
-@client.event
+@bot.event
 async def on_ready():
-    print(f"{client.user} está onlines!")
+    print(f'Bot conectado como {bot.user.name}')
 
-@client.event
-async def on_message(message):
-    print(message.content)
-    if message.author == client.user:
-        print('teste')
-        return
 
-    if message.content.startswith('/hello'):
-        await message.channel.send('Hello!')
+async def load():
+    for filename in os.listdir('./cogs'):
+        if filename.endswith('.py'):
+           await bot.load_extension(f'cogs.{filename[:-3]}')
 
-client.run(TOKEN)
+bot.run(TOKEN)
