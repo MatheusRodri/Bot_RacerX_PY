@@ -1,15 +1,7 @@
-import discord
-from discord.ext import commands
+from index import *
 
-class Hello(commands.Cog):
-    print("Hello Cog Loaded")
-    def __init__(self, bot):
-        self.bot = bot
-
-    @commands.command()
-    async def hello(self, ctx, *, member: discord.Member = None):
-        await ctx.send('Hello!')
-
-
-def setup(bot):
-    bot.add_cog(Hello(bot))
+@bot.command(name='hello')
+async def hello(ctx):
+    frases = [("Hello!"), ("Hi!"), ("Hello there!"), ("Yo mate!")]
+    resposta = random.choice(frases)
+    await ctx.send(resposta)

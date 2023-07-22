@@ -3,3 +3,4 @@
 1º: python -m venv venv
 2º: venv\Scripts\Activate
 3º: pip install -r requirements.txt
+4º: pip install -U discord.py
